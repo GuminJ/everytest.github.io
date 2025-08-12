@@ -18,7 +18,7 @@
 이걸 하면서 “아, 난 이래서 이렇구나!” 하는 작은 깨달음을 얻으셨으면 좋겠어요.
 
 **🌐 바로 해보기**
-👉 [테스트 시작하기](https://guminj.github.io/everytest.github.io/)
+👉 [테스트 시작하기](https://guminj.github.io/everytest.github.io/index.html)
 
 **✨ 제작자**
 심리학과 졸업 & 인지심리학 대학원 수료(Goom)
