@@ -16,7 +16,7 @@
             padding:14px 28px;border-radius:12px;font-weight:800;font-size:16px;
             text-decoration:none;box-shadow:0 6px 14px rgba(255,147,182,.28);
             transition:all .2s ease">
-    👉 [🍚 밥 습관으로 보는 나와 잘맞는 회사 ]
+    🍚 밥 습관으로 보는 나와 잘맞는 회사
   </a>
 </p>
 👉 [ 추가 테스트 준비중 ]
