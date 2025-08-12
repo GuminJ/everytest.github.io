@@ -49,5 +49,15 @@
 <p></p>
 <b>✨ 제작자</b>
 Goom
+<p></p>
+<p></p>
+</div>
 
+<!-- 광고 영역 -->
+  <div class="ad-section">
+    <a href="https://광고링크" target="_blank">
+      <img src="banner.png" alt="광고 배너">
+    </a>
+    <p style="font-size: 0.9em; color: #777;">광고를 클릭하면 새로운 페이지로 이동합니다.</p>
+  </div>
 </div>
