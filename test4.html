@@ -51,7 +51,13 @@
     .choice{display:flex; flex-direction:column; align-items:center; gap:10px; padding:14px; border-radius:16px; background:#fff; border:1px solid rgba(58,55,70,.12); cursor:pointer; transition:transform .08s ease, box-shadow .08s ease, border-color .08s ease}
     .choice:hover{transform:translateY(-2px); box-shadow:0 10px 22px rgba(255,147,182,.18); border-color:var(--accent)}
     .thumb{width:100%; aspect-ratio:2/1; /* 카드 이미지 권장: 800x400 (2:1) */ /* 카드 이미지 권장: 800x600 (4:3) */ border-radius:12px; background:#fafafa; display:grid; place-items:center; overflow:hidden; border:1px dashed rgba(58,55,70,.12)}
-    .thumb img{width:100%; height:100%; object-fit:contain}
+    .thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;       /* 이미지가 비율 유지하며 꽉 차도록 변경 */
+      display: block;          /* 여백 없이 출력되도록 추가 */
+      border-radius: inherit;  /* 부모 thumb의 둥근 모서리 적용 */
+      }
     .label{font-weight:700; text-align:center}
     .sub{font-size:13px; color:var(--muted); text-align:center}
 
