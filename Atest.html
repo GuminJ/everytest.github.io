@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>🍚 밥 습관으로 보는 나의 회사 타입</title>
+  <meta name="description" content="카드 선택형 심리테스트 · 밥 먹는 습관으로 알아보는 나에게 맞는 회사 타입" />
+  <meta property="og:title" content="밥 습관 회사 타입 테스트" />
+  <meta property="og:description" content="카드 뽑기처럼 골라보세요. 웃기지만 은근 맞는 결과!" />
+  <meta property="og:type" content="website" />
+  <style>
+    :root{
+      /* 파스텔 테마 (기존 스타일 유지) */
+      --bg:#fff7fb; --bg-grad1:#ffeef7; --bg-grad2:#fffdf7;
+      --card:#ffffff; --text:#3a3746; --muted:#7a7788;
+      --accent:#ff93b6; --accent-2:#75d6c7; --shadow:0 14px 32px rgba(255,147,182,.25);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{margin:0; font-family: ui-rounded, system-ui, -apple-system, Segoe UI, Roboto, Noto Sans KR, Helvetica, Arial; color:var(--text);
+      background: radial-gradient(900px 500px at 20% -10%, var(--bg-grad1) 0%, var(--bg) 40%, var(--bg-grad2) 100%);}
+    .wrap{max-width:980px; margin:0 auto; padding:32px 18px 64px}
+    .brand{display:flex; align-items:center; gap:10px; margin-bottom:14px}
+    .brand .heart{width:10px; height:10px; border-radius:8px; background:var(--accent); box-shadow:0 0 0 6px rgba(255,147,182,.18)}
+    h1{font-size:clamp(24px, 4vw, 38px); margin:0}
+    p.lead{margin:6px 0 0; color:var(--muted)}
+
+    .card{background:var(--card); border:1px solid rgba(58,55,70,.06); border-radius:22px; box-shadow:var(--shadow)}
+    .inner{padding:26px}
+
+    .hero{display:grid; gap:18px}
+    @media(min-width:860px){.hero{grid-template-columns:1.3fr .7fr}}
+    .hero .visual{background: linear-gradient(135deg, #fff0f5, #e9fff9); border-radius:18px; padding:16px; display:flex; align-items:center; justify-content:center}
+    .hero .visual .bubble{width:96px; height:96px; border-radius:24px; background:#fff; border:1px solid rgba(58,55,70,.06); box-shadow:var(--shadow); display:grid; place-items:center; font-size:36px}
+
+    .btn{appearance:none; border:none; border-radius:14px; padding:14px 18px; font-weight:800; cursor:pointer; color:#fff; background: linear-gradient(135deg, var(--accent), #ffc2d8); box-shadow:0 10px 18px rgba(255,147,182,.35)}
+    .btn.secondary{background: linear-gradient(135deg, #94e3d5, var(--accent-2)); color:#103a37}
+    .btn.ghost{background:#fff; color:var(--text); border:1px solid rgba(58,55,70,.1); box-shadow:none}
+    .btn:disabled{opacity:.55; cursor:not-allowed}
+
+    .progress{height:10px; width:100%; background:rgba(58,55,70,.06); border-radius:999px; overflow:hidden}
+    .progress > i{display:block; height:100%; width:0%; background:linear-gradient(90deg, var(--accent), var(--accent-2)); transition:width .25s}
+
+    /* 카드 선택 UI */
+    .q{margin-top:18px; padding:18px; border-radius:16px; background:#fff8fb; border:1px solid rgba(58,55,70,.08)}
+    .q h3{margin:0 0 12px; font-size:18px}
+
+    .card-grid{display:grid; gap:14px; margin-top:10px}
+    @media(min-width:720px){.card-grid{grid-template-columns: repeat(3, 1fr)}}
+
+    .choice{display:flex; flex-direction:column; align-items:center; gap:10px; padding:14px; border-radius:16px; background:#fff; border:1px solid rgba(58,55,70,.12); cursor:pointer; transition:transform .08s ease, box-shadow .08s ease, border-color .08s ease}
+    .choice:hover{transform:translateY(-2px); box-shadow:0 10px 22px rgba(255,147,182,.18); border-color:var(--accent)}
+    .thumb{width:100%; aspect-ratio:1/1; border-radius:12px; background:#fafafa; display:grid; place-items:center; overflow:hidden; border:1px dashed rgba(58,55,70,.12)}
+    .thumb img{width:100%; height:100%; object-fit:contain}
+    .label{font-weight:700; text-align:center}
+    .sub{font-size:13px; color:var(--muted); text-align:center}
+
+    .result{display:none}
+    .badge{display:inline-flex; align-items:center; gap:8px; padding:8px 12px; border-radius:999px; background:#fff; border:1px solid rgba(58,55,70,.12); color:#db3b77; font-weight:800}
+    .grid{display:grid; gap:14px}
+    @media(min-width:720px){.grid{grid-template-columns: repeat(2,1fr)}}
+
+    footer{margin-top:20px; color:var(--muted); font-size:13px}
+    .small{font-size:13px; color:var(--muted)}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="brand"><span class="heart"></span><div>
+      <h1>🍚 밥 습관으로 보는 나의 회사 타입</h1>
+      <p class="lead">카드 뽑기처럼 골라보세요 · 웃기지만 은근 맞는 결과</p>
+    </div></div>
+
+    <!-- Intro -->
+    <section id="intro" class="card">
+      <div class="inner hero">
+        <div>
+          <h2 style="margin:0 0 8px 0">점심 습관으로 찾는 내 취향 회사 😋</h2>
+          <p class="lead">카드를 골라주세요. 선택은 8번, 결과는 6가지 회사 타입 중 하나!</p>
+          <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:14px">
+            <button class="btn" id="startBtn">시작하기</button>
+            <button class="btn ghost" id="shareBtn" title="링크 복사">공유 링크 복사</button>
+          </div>
+          <footer>개인정보 수집 없음 · 이미지가 없다면 자리 표시(회색 상자)로 보입니다.</footer>
+        </div>
+        <div class="visual">
+          <div class="bubble">🍱</div>
+          <div class="bubble" style="margin-left:12px">🍜</div>
+          <div class="bubble" style="margin-left:12px">🍗</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Test: 카드 선택형 -->
+    <section id="test" class="card" style="display:none; margin-top:16px">
+      <div class="inner">
+        <div class="progress" aria-hidden="true"><i id="bar"></i></div>
+        <div id="qWrap"></div>
+        <div style="display:flex; gap:10px; margin-top:14px; flex-wrap:wrap">
+          <button class="btn secondary" id="prevBtn">이전</button>
+          <button class="btn" id="nextBtn">건너뛰기</button>
+        </div>
+        <p class="small" id="countText" style="margin-top:10px"></p>
+      </div>
+    </section>
+
+    <!-- Result -->
+    <section id="result" class="card result" style="margin-top:16px">
+      <div class="inner">
+        <div style="display:flex; align-items:center; justify-content:space-between; gap:8px; flex-wrap:wrap">
+          <span class="badge" id="typeBadge">결과 유형</span>
+          <button class="btn ghost" id="restartBtn">다시 테스트</button>
+        </div>
+        <h2 id="typeTitle" style="margin:10px 0 6px 0"></h2>
+        <p id="typeDesc" class="lead"></p>
+        <div class="grid" style="margin-top:16px">
+          <div class="q">
+            <h3>추천 포인트</h3>
+            <ul id="strengths"></ul>
+          </div>
+          <div class="q">
+            <h3>주의 포인트</h3>
+            <ul id="risks"></ul>
+          </div>
+        </div>
+        <div class="q" style="margin-top:16px">
+          <h3>현실 적용 팁</h3>
+          <ul id="tips"></ul>
+        </div>
+        <div style="display:flex; gap:10px; margin-top:16px; flex-wrap:wrap">
+          <button class="btn" id="copyResult">결과 링크 복사</button>
+        </div>
+        <footer>참고용 자기이해 도구입니다. 의사결정은 상황과 맥락에 따라 검토하세요.</footer>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    // ====== 회사 타입(최종 결과) 정의 ======
+    const COMPANY_TYPES = {
+      BALANCE: {
+        name: '🏖 워라밸 최고! 휴식을 중시하는 기업',
+        desc: '당신은 워라밸과 휴식을 최우선으로 하는 회사와 잘 어울립니다. 충분한 휴식이 있어야 에너지가 차오르고, 그래야 일에서도 집중력을 발휘하는 타입입니다. 이 회사에서는 규칙적인 근무 시간과 여유 있는 환경 속에서 더욱 창의력을 발휘할 수 있습니다.',
+        strengths: ['유연근무/재택 비율 공개', '연차 소진률·평균 퇴근 시간 데이터', '회식/야근 강요 금지 명문화', '심리적 안전감(리더십 1:1, 피드백 문화)'],
+        risks: ['“가끔만”이라는 상시 야근', '모호한 성과지표(항상 긴장 상태 유발)', '휴게시간·점심시간 침해 관행'],
+        tips: ['면접 때 “일·삶 경계” 질문으로 확인: “퇴근 이후 커뮤니케이션 룰은?”', '일정에 버퍼(완충시간) 공식화: 캘린더에 집중·회복 블록 예약'],
+        oneLiner: '내 에너지를 지켜주는 회사가, 내 성과도 지켜준다.'
+      },
+      GROWTH: {
+        name: '🚀 성장 드라이브',
+        desc: '당신은 도전과 속도를 즐기는 회사와 잘 어울립니다. 빠른 프로젝트 진행과 끊임없는 과제가 오히려 동기부여가 되고, 성장을 위한 자극이 됩니다. 이 회사에서는 변화와 속도 속에서 실력을 빠르게 끌어올릴 수 있습니다.',
+        strengths: ['분기별 목표/지표(OKR) 운영', '주단위 스프린트·레트로 문화', '사수/멘토링·교육비 지원', '빠른 의사결정 구조(의사결정권 명확)'],
+        risks: ['성장 미명 하의 무한 야근', '목표만 있고 리소스·권한 부족', '바뀌기만 하고 기록·학습이 없는 조직'],
+        tips: ['“목표 대비 권한/자원”을 확인: “이 목표 달성 권한은 어디까지인가요?”', '과속 방지용 완료 정의(DoD)를 사전 합의'],
+        oneLiner: '속도는 무기, 기준은 방패.'
+      },
+      PEOPLE: {
+        name: '🐶 사람 중심',
+        desc: '당신은 따뜻한 조직문화와 좋은 동료가 있는 회사와 잘 어울립니다. 함께하는 사람이 행복해야 일도 즐겁게 할 수 있고, 협력 속에서 최고의 성과를 내는 스타일입니다. 이 회사에서는 동료와의 관계를 통해 즐겁게 성과를 만들어갈 수 있습니다.',
+        strengths: ['온보딩/버디 제도', '정기 1:1 피드백·코칭', '심리적 안전감 설문·익명 채널', '팀 빌딩 예산/사내 커뮤니티'],
+        risks: ['“가족 같은” 문구 뒤 사적 요구', '관계는 좋으나 역할·책임 모호', '갈등을 대화로 풀지 않는 문화'],
+        tips: ['면접에서 팀 협업 사례를 구체적으로 요청', '업무/사적 경계선을 초기 합의'],
+        oneLiner: '좋은 사람과 일하면, 좋은 내가 나온다.'
+      },
+      STABLE: {
+        name: '📋 반복·안정',
+        desc: '당신은 안정적인 루틴과 예측 가능한 업무 환경의 회사와 잘 어울립니다. 익숙한 패턴 속에서 깊이 있는 전문성을 발휘하며, 변화보다는 꾸준함에서 만족감을 느낍니다. 이 회사에서는 차분하고 꼼꼼한 업무 스타일로 신뢰를 쌓을 수 있습니다.',
+        strengths: ['표준 운영절차(SOP)·체크리스트 확립', '역할 정의·인수인계 문서화', '품질지표/오류율 관리 체계', '장기 근속 비율·이직률 공개'],
+        risks: ['변화는 없는데 책임만 증가', '매뉴얼 미비로 사람 따라 일하는 구조', '반복 업무에 대한 인정/보상 부재'],
+        tips: ['직무 요건서에서 반복 업무의 기준·성과 측정 확인', '개선 제안 채널 존재 여부 점검'],
+        oneLiner: '같은 일을 다르게 잘하는 것이 실력.'
+      },
+      CREATIVE: {
+        name: '🎨 창의·자유',
+        desc: '당신은 자유로운 분위기와 창의성을 존중하는 회사와 잘 어울립니다. 아이디어가 떠오르면 바로 실행해볼 수 있는 환경에서 몰입도가 높아집니다. 이 회사에서는 틀에 얽매이지 않고 새로운 시도를 통해 성과를 만들어갈 수 있습니다.',
+        strengths: ['실험 예산·프로토타입 시간 보장', '실패 기록·학습 공유 문화', '수평 커뮤니케이션(아이디어 채택 경로 명확)', '사이드 프로젝트 장려'],
+        risks: ['자유만 있고 우선순위·책임 부재', '성과 기준 불명확', '지속적 “새로움” 강요로 피로'],
+        tips: ['아이디어→실행→평가 사이클과 승인 라인 확인', '내 업무의 완료 기준(DoD)을 문서로 합의'],
+        oneLiner: '자유는 방향이 있을 때 날개가 된다.'
+      },
+      DETAIL: {
+        name: '🔍 디테일·완벽',
+        desc: '당신은 체계와 규칙이 명확한 회사와 잘 어울립니다. 명확한 근거와 데이터 속에서 안정감과 효율성을 극대화하는 타입입니다. 이 회사에서는 구조적인 시스템 속에서 높은 완성도의 결과물을 만들어낼 수 있습니다.',
+        strengths: ['코드/문서 리뷰·QA 프로세스', '표준 템플릿·스타일가이드·데이터 사전', 'KPI·품질 목표와 리소스 배분 일치', '리스크 관리·승인 절차 명확'],
+        risks: ['과도한 승인 단계로 의사결정 지연', '미세관리로 자율성 저하', '완벽만 요구하고 시간은 주지 않음'],
+        tips: ['품질 기준과 납기 균형을 초기 합의', '필수/권장 기준을 분리해 딜리버리 리스크 감소'],
+        oneLiner: '완성도는 과정의 언어다. 프로세스를 설계하라.'
+      }
+    };
+
+    // MBTI → 회사 타입 매핑(중복 없이 16개)
+    const MBTI_TO_COMPANY = {
+      // BALANCE
+      ISFP:'BALANCE', INFP:'BALANCE', ISFJ:'BALANCE',
+      // GROWTH
+      ENTJ:'GROWTH', ENTP:'GROWTH', ESTP:'GROWTH',
+      // PEOPLE
+      ENFP:'PEOPLE', ESFP:'PEOPLE', ENFJ:'PEOPLE',
+      // STABLE
+      ISTJ:'STABLE', ESTJ:'STABLE', ISTP:'STABLE',
+      // CREATIVE
+      INTP:'CREATIVE', INFJ:'CREATIVE',
+      // DETAIL
+      INTJ:'DETAIL', ESFJ:'DETAIL'
+    };
+
+    // ====== 카드 기반 질문 정의 ======
+    // img는 자리표시 경로. 실제 이미지가 없으면 회색 상자만 보임.
+    const QUESTIONS = [
+      { // Q1 J/P
+        title:'Q1. 점심 메뉴 고를 때 당신은?',
+        options:[
+          { id:'A', label:'내가 먹고 싶은 거로!', sub:'결정은 나의 것', img:'images/q1A.png', effect:{J:1} },
+          { id:'B', label:'후보 몇 개만', sub:'적당히 고르는 편', img:'images/q1B.png', effect:{} },
+          { id:'C', label:'아무거나~', sub:'유연 그 자체', img:'images/q1C.png', effect:{P:1} }
+        ]
+      },
+      { // Q2 J/P 보조
+        title:'Q2. 밥 먹는 속도는?',
+        options:[
+          { id:'A', label:'후다닥!', sub:'속도우선', img:'images/q2A.png', effect:{J:1} },
+          { id:'B', label:'보통', sub:'균형 잡힌 속도', img:'images/q2B.png', effect:{} },
+          { id:'C', label:'느릿느릿', sub:'음미형', img:'images/q2C.png', effect:{P:1} }
+        ]
+      },
+      { // Q3 E/I
+        title:'Q3. 식사 중 대화 스타일은?',
+        options:[
+          { id:'A', label:'수다가 밥맛!', sub:'함께 먹어야 제맛', img:'images/q3A.png', effect:{E:1} },
+          { id:'B', label:'적당히', sub:'상황 따라', img:'images/q3B.png', effect:{} },
+          { id:'C', label:'조용히 집중', sub:'먹을 땐 먹자', img:'images/q3C.png', effect:{I:1} }
+        ]
+      },
+      { // Q4 S/N
+        title:'Q4. 자리는 어떻게 고르나요?',
+        options:[
+          { id:'A', label:'늘 같은 자리', sub:'루틴 선호', img:'images/q4A.png', effect:{S:1} },
+          { id:'B', label:'그날그날 랜덤', sub:'변화 선호', img:'images/q4B.png', effect:{N:1} }
+        ]
+      },
+      { // Q5 S/N 보조
+        title:'Q5. 토핑 취향은?',
+        options:[
+          { id:'A', label:'기본이 최고', sub:'정석파', img:'images/q5A.png', effect:{S:1} },
+          { id:'B', label:'커스텀 좋아요', sub:'실험파', img:'images/q5B.png', effect:{N:1} }
+        ]
+      },
+      { // Q6 E/I 보조
+        title:'Q6. 혼밥 vs 다같이?',
+        options:[
+          { id:'A', label:'다같이!', sub:'함께의 즐거움', img:'images/q6A.png', effect:{E:1} },
+          { id:'B', label:'혼밥이 편해', sub:'나만의 시간', img:'images/q6B.png', effect:{I:1} }
+        ]
+      },
+      { // Q7 T/F
+        title:'Q7. 메뉴 선택 기준은?',
+        options:[
+          { id:'A', label:'가성비/칼로리', sub:'데이터 우선', img:'images/q7A.png', effect:{T:1} },
+          { id:'B', label:'기분/분위기', sub:'감정 우선', img:'images/q7B.png', effect:{F:1} }
+        ]
+      },
+      { // Q8 T/F 보조
+        title:'Q8. 메뉴 충돌 시 해결은?',
+        options:[
+          { id:'A', label:'후기·거리로 설득', sub:'객관적 근거', img:'images/q8A.png', effect:{T:1} },
+          { id:'B', label:'오늘은 네가♥', sub:'타협과 양보', img:'images/q8B.png', effect:{F:1} }
+        ]
+      }
+    ];
+
+    // ====== 상태 ======
+    let idx = 0; // 현재 문항 인덱스
+    const answers = Array(QUESTIONS.length).fill(null); // A/B/C 저장
+    const score = {E:0,I:0,S:0,N:0,T:0,F:0,J:0,P:0};
+
+    // ====== 엘리먼트 ======
+    const intro = document.getElementById('intro');
+    const test = document.getElementById('test');
+    const result = document.getElementById('result');
+    const qWrap = document.getElementById('qWrap');
+    const bar = document.getElementById('bar');
+    const countText = document.getElementById('countText');
+
+    // 시작/공유
+    document.getElementById('startBtn').onclick = () => { intro.style.display='none'; test.style.display='block'; render(); };
+    document.getElementById('shareBtn').onclick = async () => {
+      try{ await navigator.clipboard.writeText(location.href); alert('현재 페이지 링크가 복사되었습니다.'); } catch { alert('복사 실패. 수동 복사 부탁드립니다.'); }
+    }
+
+    // 이전/건너뛰기(선택 안 하고 넘길 수 있음)
+    document.getElementById('prevBtn')?.addEventListener('click', ()=>{ if(idx>0){ idx--; render(); }});
+    document.getElementById('nextBtn')?.addEventListener('click', ()=>{ next(); });
+
+    function applyEffect(effect){
+      Object.entries(effect||{}).forEach(([k,v])=>{ score[k] = (score[k]||0) + v; });
+    }
+
+    function render(){
+      const total = QUESTIONS.length;
+      bar.style.width = ((idx)/total*100).toFixed(1)+'%';
+      countText.textContent = `${idx+1} / ${total}`;
+
+      const q = QUESTIONS[idx];
+      qWrap.innerHTML = `
+        <div class="q">
+          <h3>${q.title}</h3>
+          <div class="card-grid">
+            ${q.options.map((op, i)=>{
+              const selected = answers[idx] && answers[idx].id===op.id ? 'style="border-color:var(--accent)"' : '';
+              const imgTag = `<div class=\"thumb\">${op.img ? `<img src=\"${op.img}\" alt=\"${op.label}\">` : '<span class=\"small\">이미지 자리</span>'}</div>`;
+              return `<div class=\"choice\" ${selected} data-id=\"${op.id}\">
+                        ${imgTag}
+                        <div class=\"label\">${op.label}</div>
+                        <div class=\"sub\">${op.sub||''}</div>
+                      </div>`
+            }).join('')}
+          </div>
+        </div>`;
+
+      qWrap.querySelectorAll('.choice').forEach(el=>{
+        el.onclick = () => {
+          const pickId = el.getAttribute('data-id');
+          const picked = QUESTIONS[idx].options.find(o=>o.id===pickId);
+          // 선택 기록 업데이트(이전 선택이 있었다면 점수 롤백 후 재적용)
+          if(answers[idx]){ // 롤백
+            Object.entries(answers[idx].effect||{}).forEach(([k,v])=>{ score[k]-=v; });
+          }
+          answers[idx] = picked;
+          applyEffect(picked.effect);
+          // 다음 문항으로 자동 진행
+          next();
+        }
+      });
+
+      document.getElementById('prevBtn').disabled = (idx===0);
+      document.getElementById('nextBtn').textContent = (idx===total-1)?'건너뛰기':'건너뛰기';
+    }
+
+    function next(){
+      if(idx < QUESTIONS.length-1){ idx++; render(); }
+      else { calcAndShow(); }
+    }
+
+    function toMBTI(s){
+      const EI = s.E===s.I ? (s.E>0? 'E':'I') : (s.E>s.I?'E':'I');
+      const SN = s.S===s.N ? 'N' : (s.S>s.N?'S':'N'); // 동점은 N 우선
+      const TF = s.T===s.F ? 'F' : (s.T>s.F?'T':'F'); // 동점은 F 우선
+      const JP = s.J===s.P ? 'P' : (s.J>s.P?'J':'P'); // 동점은 P 우선
+      return EI+SN+TF+JP;
+    }
+
+    function calcAndShow(){
+      const mbti = toMBTI(score);
+      const key = MBTI_TO_COMPANY[mbti] || 'BALANCE';
+      showCompany(key, mbti);
+    }
+
+    function showCompany(key, mbti){
+      const t = COMPANY_TYPES[key];
+      bar.style.width = '100%';
+      document.getElementById('typeBadge').textContent = t.name;
+      document.getElementById('typeTitle').textContent = t.name;
+      document.getElementById('typeDesc').textContent = t.desc;
+      fill('strengths', t.strengths); fill('risks', t.risks); fill('tips', t.tips||[]);
+      test.style.display='none'; result.style.display='block';
+      const params = new URLSearchParams({ company:key, mbti });
+      history.replaceState(null,'', location.pathname + '?' + params.toString());
+    }
+
+    function fill(id, arr){ const ul=document.getElementById(id); ul.innerHTML=''; (arr||[]).forEach(x=>{ const li=document.createElement('li'); li.textContent=x; ul.appendChild(li) }) }
+
+    document.getElementById('restartBtn').onclick = () => {
+      idx = 0; answers.fill(null); Object.keys(score).forEach(k=>score[k]=0); bar.style.width='0%';
+      result.style.display='none'; test.style.display='block'; render();
+      history.replaceState(null,'', location.pathname);
+    };
+
+    document.getElementById('copyResult').onclick = async () => {
+      try{ await navigator.clipboard.writeText(location.href); alert('결과 링크가 복사되었습니다.'); } catch { alert('복사 실패. 주소창의 URL을 복사해주세요.'); }
+    };
+    // README/랜딩으로 이동
+    const homeBtn = document.getElementById('homeBtn');
+    if(homeBtn){ homeBtn.onclick = () => { try { window.location.href = './'; } catch(e) { window.location.assign('./'); } }; } alert('결과 링크가 복사되었습니다.'); } catch { alert('복사 실패. 주소창의 URL을 복사해주세요.'); }
+    };
+
+    (function initFromURL(){
+      const p = new URLSearchParams(location.search);
+      const company = p.get('company'); const mbti = p.get('mbti');
+      if(company && COMPANY_TYPES[company]){ intro.style.display='none'; showCompany(company, mbti||''); }
+    })();
+  </script>
+</body>
+</html>
