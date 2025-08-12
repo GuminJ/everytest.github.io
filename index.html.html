@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>러블리 심리테스트 | 협업 성향 체크</title>
+  <meta name="description" content="8문항 · 1분 완성. 러블리 파스텔 테마로 즐기는 협업 성향 심리테스트" />
+  <meta property="og:title" content="러블리 심리테스트" />
+  <meta property="og:description" content="8문항, 1분 완성. 당신의 협업 유형을 확인해보세요." />
+  <meta property="og:type" content="website" />
+  <style>
+    :root{
+      /* 파스텔 테마 */
+      --bg:#fff7fb;           /* 연핑크 배경 */
+      --bg-grad1:#ffeef7;     /* 그라디언트 */
+      --bg-grad2:#fffdf7;
+      --card:#ffffff;         /* 카드 */
+      --text:#3a3746;         /* 본문 */
+      --muted:#7a7788;        /* 보조 */
+      --accent:#ff93b6;       /* 포인트 핑크 */
+      --accent-2:#75d6c7;     /* 민트 */
+      --shadow:0 14px 32px rgba(255,147,182,.25);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{margin:0; font-family: ui-rounded, system-ui, -apple-system, Segoe UI, Roboto, Noto Sans KR, Helvetica, Arial;
+      color:var(--text);
+      background: radial-gradient(900px 500px at 20% -10%, var(--bg-grad1) 0%, var(--bg) 40%, var(--bg-grad2) 100%);
+    }
+    .wrap{max-width:920px; margin:0 auto; padding:32px 18px 64px}
+    .brand{display:flex; align-items:center; gap:10px; margin-bottom:14px}
+    .brand .heart{width:10px; height:10px; border-radius:8px; background:var(--accent); box-shadow:0 0 0 6px rgba(255,147,182,.18)}
+    h1{font-size:clamp(24px, 4vw, 38px); margin:0}
+    p.lead{margin:6px 0 0; color:var(--muted)}
+
+    .card{background:var(--card); border:1px solid rgba(58,55,70,.06); border-radius:22px; box-shadow:var(--shadow)}
+    .inner{padding:26px}
+
+    .hero{display:grid; gap:18px}
+    @media(min-width:860px){.hero{grid-template-columns:1.2fr .8fr}}
+
+    .hero .visual{background: linear-gradient(135deg, #fff0f5, #e9fff9); border-radius:18px; padding:16px; display:flex; align-items:center; justify-content:center}
+    .hero .visual .bubble{width:96px; height:96px; border-radius:24px; background:#fff; border:1px solid rgba(58,55,70,.06); box-shadow:var(--shadow); display:grid; place-items:center; font-size:36px}
+
+    .btn{appearance:none; border:none; border-radius:14px; padding:14px 18px; font-weight:800; cursor:pointer; color:#fff; background: linear-gradient(135deg, var(--accent), #ffc2d8); box-shadow:0 10px 18px rgba(255,147,182,.35)}
+    .btn.secondary{background: linear-gradient(135deg, #94e3d5, var(--accent-2)); color:#103a37}
+    .btn.ghost{background:#fff; color:var(--text); border:1px solid rgba(58,55,70,.1); box-shadow:none}
+    .btn:disabled{opacity:.55; cursor:not-allowed}
+
+    .progress{height:10px; width:100%; background:rgba(58,55,70,.06); border-radius:999px; overflow:hidden}
+    .progress > i{display:block; height:100%; width:0%; background:linear-gradient(90deg, var(--accent), var(--accent-2)); transition:width .25s}
+
+    .q{margin-top:18px; padding:18px; border-radius:16px; background:#fff8fb; border:1px solid rgba(58,55,70,.08)}
+    .q h3{margin:0 0 12px; font-size:18px}
+
+    .scale{display:grid; grid-template-columns: repeat(5,1fr); gap:10px}
+    .opt{background:#ffffff; border:1px solid rgba(58,55,70,.12); padding:12px; text-align:center; border-radius:12px; cursor:pointer; color:var(--muted)}
+    .opt.active{border-color:var(--accent); color:var(--text); box-shadow:0 6px 12px rgba(255,147,182,.25)}
+
+    .result{display:none}
+    .badge{display:inline-flex; align-items:center; gap:8px; padding:8px 12px; border-radius:999px; background:#fff; border:1px solid rgba(58,55,70,.12); color:#db3b77; font-weight:800}
+    .grid{display:grid; gap:14px}
+    @media(min-width:720px){.grid{grid-template-columns: repeat(2,1fr)}}
+
+    footer{margin-top:20px; color:var(--muted); font-size:13px}
+    .small{font-size:13px; color:var(--muted)}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="brand"><span class="heart"></span><div>
+      <h1>러블리 심리테스트: 협업 성향 체크</h1>
+      <p class="lead">8문항 · 1분 완성 · 파스텔 카드형 인터페이스</p>
+    </div></div>
+
+    <!-- Hero / Intro -->
+    <section id="intro" class="card">
+      <div class="inner hero">
+        <div>
+          <h2 style="margin:0 0 8px 0">오늘의 나, 어떤 협업 유형일까요? 💖</h2>
+          <p class="lead">문항별로 본인에게 가까운 정도를 선택하세요(1=전혀 아니다 ~ 5=매우 그렇다). 결과는 참고용이며 임상 진단이 아닙니다.</p>
+          <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:14px">
+            <button class="btn" id="startBtn">시작하기</button>
+            <button class="btn ghost" id="shareBtn" title="링크 복사">공유 링크 복사</button>
+          </div>
+          <footer>개인정보 수집 없음 · 응답은 브라우저 메모리에서만 처리됩니다.</footer>
+        </div>
+        <div class="visual">
+          <div class="bubble">💡</div>
+          <div class="bubble" style="margin-left:12px">💝</div>
+          <div class="bubble" style="margin-left:12px">📊</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Test -->
+    <section id="test" class="card" style="display:none; margin-top:16px">
+      <div class="inner">
+        <div class="progress" aria-hidden="true"><i id="bar"></i></div>
+        <div id="qWrap"></div>
+        <div style="display:flex; gap:10px; margin-top:14px; flex-wrap:wrap">
+          <button class="btn secondary" id="prevBtn">이전</button>
+          <button class="btn" id="nextBtn">다음</button>
+        </div>
+        <p class="small" id="countText" style="margin-top:10px"></p>
+      </div>
+    </section>
+
+    <!-- Result -->
+    <section id="result" class="card result" style="margin-top:16px">
+      <div class="inner">
+        <div style="display:flex; align-items:center; justify-content:space-between; gap:8px; flex-wrap:wrap">
+          <span class="badge" id="typeBadge">결과 유형</span>
+          <button class="btn ghost" id="restartBtn">다시 테스트</button>
+        </div>
+        <h2 id="typeTitle" style="margin:10px 0 6px 0"></h2>
+        <p id="typeDesc" class="lead"></p>
+        <div class="grid" style="margin-top:16px">
+          <div class="q">
+            <h3>강점</h3>
+            <ul id="strengths"></ul>
+          </div>
+          <div class="q">
+            <h3>주의 포인트</h3>
+            <ul id="risks"></ul>
+          </div>
+        </div>
+        <div class="q" style="margin-top:16px">
+          <h3>현실 적용 팁</h3>
+          <ul id="tips"></ul>
+        </div>
+        <div style="display:flex; gap:10px; margin-top:16px; flex-wrap:wrap">
+          <button class="btn" id="copyResult">결과 링크 복사</button>
+        </div>
+        <footer>참고용 자기이해 도구입니다. 의사결정은 상황과 맥락에 따라 검토하세요.</footer>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    // ----- 유형 정의 -----
+    const TYPES = {
+      N: { name: '전략가(Navigator)', color: '--accent',
+        desc: '큰 그림을 그리고 방향을 제시하는 전략 중심 협업가.',
+        strengths: ['목표·지표 정렬', '우선순위 설정', '리스크 선제 파악'],
+        risks: ['실행 디테일 간과', '결정 지연', '팀과의 거리감'],
+        tips: ['OKR 공유', '결정 데드라인 명확화', '체크리스트 운영']
+      },
+      B: { name: '실행가(Builder)', color: '--accent-2',
+        desc: '계획을 빠르게 실행하고 결과를 만들어내는 추진형 협업가.',
+        strengths: ['속도·실행력', '즉시 대응', '산출물 중심 커뮤니케이션'],
+        risks: ['장기 전략 부족', '품질 저하', '독주 위험'],
+        tips: ['스프린트 품질 점검', '전략가와 주간 싱크', '완료 정의(DoD) 명확화']
+      },
+      H: { name: '조율가(Harmonizer)', color: '--muted',
+        desc: '관계와 협업 환경을 다듬어 팀 성과를 돕는 조정형 협업가.',
+        strengths: ['이해관계 조정', '갈등 완충', '정보 흐름 관리'],
+        risks: ['소통 과부하', '결정 회피', '성과 가시성 낮음'],
+        tips: ['의사결정권자 명확화', '회의 수·시간 제한', '가시적 지표 설계']
+      },
+      C: { name: '도전가(Challenger)', color: '--accent',
+        desc: '현 상태를 질문하고 더 나은 방법을 탐색하는 혁신형 협업가.',
+        strengths: ['문제 재정의', '대안 탐색', '높은 기준'],
+        risks: ['피로감 유발', '충돌 증가', '실행 저하'],
+        tips: ['실험 범위·기간 한정', '제안 비율 높이기', '실행가와 페어링']
+      }
+    };
+
+    // 문항
+    const QUESTIONS = [
+      { text: '목표와 성공 지표를 먼저 정의하고 시작한다.', type: 'N' },
+      { text: '완벽하진 않아도 일단 실행해 보며 수정한다.', type: 'B' },
+      { text: '팀원이 불편함 없이 일하도록 분위기를 챙긴다.', type: 'H' },
+      { text: '관행이라면 이유를 묻고 더 나은 방식을 찾는다.', type: 'C' },
+      { text: '일의 우선순위를 정해 자원·시간을 배분한다.', type: 'N' },
+      { text: '데드라인을 지키기 위해 스스로 속도를 올린다.', type: 'B' },
+      { text: '오해를 줄이기 위해 정보를 투명하게 공유한다.', type: 'H' },
+      { text: '숫자·데이터로 가설을 검증하며 개선한다.', type: 'C' }
+    ];
+
+    // 상태
+    let idx = 0;
+    const answers = Array(QUESTIONS.length).fill(null); // 1~5
+    const scores = { N:0, B:0, H:0, C:0 };
+
+    // 엘리먼트
+    const intro = document.getElementById('intro');
+    const test = document.getElementById('test');
+    const result = document.getElementById('result');
+    const qWrap = document.getElementById('qWrap');
+    const bar = document.getElementById('bar');
+    const countText = document.getElementById('countText');
+
+    // 시작/공유
+    document.getElementById('startBtn').onclick = () => { intro.style.display='none'; test.style.display='block'; render(); };
+    document.getElementById('shareBtn').onclick = async () => {
+      try{ await navigator.clipboard.writeText(location.href); alert('현재 페이지 링크가 복사되었습니다.'); } catch { alert('복사 실패. 수동 복사 부탁드립니다.'); }
+    }
+
+    // 이전/다음
+    document.getElementById('prevBtn')?.addEventListener('click', ()=>{ if(idx>0){ idx--; render(); }});
+    document.getElementById('nextBtn')?.addEventListener('click', ()=>{
+      if(answers[idx]==null){ alert('선택해 주세요.'); return; }
+      if(idx < QUESTIONS.length-1){ idx++; render(); }
+      else { calcAndShow(); }
+    });
+
+    function render(){
+      const q = QUESTIONS[idx];
+      const total = QUESTIONS.length;
+      bar.style.width = ((idx)/total*100).toFixed(1)+'%';
+      countText.textContent = `${idx+1} / ${total}`;
+
+      qWrap.innerHTML = `
+        <div class=\"q\">
+          <h3>${q.text}</h3>
+          <div class=\"scale\" role=\"radiogroup\" aria-label=\"선택\">
+            ${[1,2,3,4,5].map(n=>{
+              const labels=['전혀 아니다','아니다','보통','그렇다','매우 그렇다'];
+              const active = answers[idx]===n ? 'active' : '';
+              return `<div class=\"opt ${active}\" data-v=\"${n}\" title=\"${labels[n-1]}\">${n}</div>`;
+            }).join('')}
+          </div>
+          <div class=\"small\" style=\"margin-top:8px\">1=전혀 아니다 · 5=매우 그렇다</div>
+        </div>`;
+
+      qWrap.querySelectorAll('.opt').forEach(el=>{
+        el.onclick = () => { answers[idx] = Number(el.dataset.v); render(); }
+      });
+
+      // 이전/다음 버튼이 intro 그리기 이후 생성되므로 다시 바인딩
+      document.getElementById('prevBtn').disabled = (idx===0);
+      document.getElementById('nextBtn').textContent = (idx===total-1)?'결과 보기':'다음';
+    }
+
+    function calcAndShow(){
+      scores.N = scores.B = scores.H = scores.C = 0;
+      answers.forEach((v,i)=>{ const t = QUESTIONS[i].type; scores[t] += v; });
+      const entries = Object.entries(scores).sort((a,b)=>b[1]-a[1]);
+      const [topType] = entries[0];
+      showResult(topType);
+    }
+
+    function showResult(key){
+      const t = TYPES[key];
+      bar.style.width = '100%';
+      document.getElementById('typeBadge').textContent = t.name;
+      document.getElementById('typeTitle').textContent = `${t.name} 유형`;
+      document.getElementById('typeDesc').textContent = t.desc;
+      fill('strengths', t.strengths); fill('risks', t.risks); fill('tips', t.tips);
+      test.style.display='none'; result.style.display='block';
+      const params = new URLSearchParams({ type:key });
+      history.replaceState(null,'', location.pathname + '?' + params.toString());
+    }
+
+    function fill(id, arr){ const ul=document.getElementById(id); ul.innerHTML=''; arr.forEach(x=>{ const li=document.createElement('li'); li.textContent=x; ul.appendChild(li) }) }
+
+    document.getElementById('restartBtn').onclick = () => {
+      idx = 0; for(let i=0;i<answers.length;i++) answers[i]=null; bar.style.width='0%';
+      result.style.display='none'; test.style.display='block'; render();
+      history.replaceState(null,'', location.pathname);
+    };
+
+    document.getElementById('copyResult').onclick = async () => {
+      try{ await navigator.clipboard.writeText(location.href); alert('결과 링크가 복사되었습니다.'); } catch { alert('복사 실패. 주소창의 URL을 복사해주세요.'); }
+    };
+
+    (function initFromURL(){
+      const p = new URLSearchParams(location.search).get('type');
+      if(p && TYPES[p]){ document.getElementById('intro').style.display='none'; showResult(p); }
+    })();
+  </script>
+</body>
+</html>
