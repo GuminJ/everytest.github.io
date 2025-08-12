@@ -17,8 +17,6 @@
             text-decoration:none;box-shadow:0 6px 14px rgba(255,147,182,.28);
             transition:all .2s ease">
     👉 A test: ㅇㅇㅇ으로 알아보는 나
-    👉 B test: ㅇㅇㅇ으로 알아보는 나
-    👉 C test: ㅇㅇㅇ으로 알아보는 나
   </a>
 </p>
 <p></p>
