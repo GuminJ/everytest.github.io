@@ -60,4 +60,3 @@ Goom
     </a>
     <p style="font-size: 0.9em; color: #777;">광고를 클릭하면 새로운 페이지로 이동합니다.</p>
   </div>
-</div>
